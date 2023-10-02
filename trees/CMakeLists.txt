@@ -1,0 +1,1 @@
+add_library(Trees SHARED bst.cpp bst.h bTree.cpp bTree.h trie.cpp trie.h)

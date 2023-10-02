@@ -1,0 +1,1 @@
+add_library(Graphs SHARED graph.cpp graph.h searching.cpp searching.h)

@@ -1,0 +1,24 @@
+cmake_minimum_required(VERSION 3.24)
+
+project(graphTrees)
+include(CMakeOptions.cmake)
+
+if (INCLUDE_GRAPHS)
+    add_subdirectory(graph)
+endif()
+
+if (INCLUDE_TREES)
+    add_subdirectory(trees)
+endif()
+
+if (BUILD_TEST_EXE)
+    add_executable(Test testMain.cpp)
+    if (INCLUDE_GRAPHS)
+        target_link_libraries(Test Graphs)
+        target_compile_definitions(Test PUBLIC TEST_GRAPHS)
+    endif()
+    if (INCLUDE_TREES)
+        target_link_libraries(Test Trees)
+        target_compile_definitions(Test PUBLIC TEST_TREES)
+    endif()
+endif()
