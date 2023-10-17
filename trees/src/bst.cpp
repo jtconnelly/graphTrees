@@ -33,11 +33,21 @@ namespace Boots
 
 
     template<typename T>
-    bool BinarySearchTree<T>::_insertHelper(Node* thisNode, const T& val)
+    bool BinarySearchTree<T>::_insertHelper(Node* thisNode, Node* prevNode, const T& val)
     {
         if (thisNode == nullptr)
         {
             thisNode = new Node(val);
+            if (prevNode == nullptr)
+                _root = thisNode;
+            else if (thisNode->_value < prevNode->_value)
+            {
+                prevNode->_left = thisNode;
+            }
+            else if (thisNode->_value > prevNode->_value)
+            {
+                prevNode->_right = thisNode;
+            }
             _size++;
             return true;
         }
@@ -46,45 +56,49 @@ namespace Boots
             return false;
         }
         else if (thisNode->_value > val)
-            return _insertHelper(thisNode->_left, val);
+            return _insertHelper(thisNode->_left, thisNode, val);
         else if (thisNode->_value < val)
-            return _insertHelper(thisNode->_right, val);
+            return _insertHelper(thisNode->_right, thisNode, val);
     }
 
 
-    //template<typename T>
-    //std::vector<T> BinarySearchTree<T>::_flatten(const Node* node)
-    //{
-    //    if (node == nullptr)
-    //    {
-    //        return std::vector<T>();
-    //    }
-    //    std::vector<T> ans;
-    //    ans.push_back(_flatten(node->_left));
-    //    ans.push_back(node->_value);
-    //    ans.push_back(_flatten(node->_right));
-    //    return ans;
-    //}
+    template<typename T>
+    std::vector<T> BinarySearchTree<T>::_flatten(const Node* node) const
+    {
+        if (node == nullptr)
+        {
+            return std::vector<T>();
+        }
+        std::vector<T> ans;
+        auto left = _flatten(node->_left);
+        ans.insert(ans.end(), left.begin(), left.end());
+        ans.push_back(node->_value);
+        auto right = _flatten(node->_right);
+        ans.insert(ans.end(), right.begin(), right.end());
+        return ans;
+    }
 
-    //template<typename T>
-    //const std::vector<T> BinarySearchTree<T>::flatten()
-    //{
-    //    if (_size == 0)
-    //    {
-    //        return std::vector<T>();
-    //    }
-    //    std::vector<T> ans;
-    //    ans.reserve(_size);
-    //    ans.push_back(_flatten(_root->_left));
-    //    ans.push_back(_root->_value);
-    //    ans.push_back(_flatten(_root->_right));
-    //    return ans;
-    //}
+    template<typename T>
+    const std::vector<T> BinarySearchTree<T>::flatten() const
+    {
+        if (_size == 0)
+        {
+            return std::vector<T>();
+        }
+        std::vector<T> ans;
+        ans.reserve(_size);
+        auto left = _flatten(_root->_left);
+        ans.insert(ans.end(), left.begin(), left.end());
+        ans.push_back(_root->_value);
+        auto right = _flatten(_root->_right);
+        ans.insert(ans.end(), right.begin(), right.end());
+        return ans;
+    }
 
     template<typename T>
     bool BinarySearchTree<T>::insert(const T& val)
     {
-        return _insertHelper(_root, val);
+        return _insertHelper(_root, nullptr, val);
 
     }
 
@@ -190,7 +204,7 @@ namespace Boots
     }
     
     template<typename T>
-    bool BinarySearchTree<T>::search(const T& val)
+    bool BinarySearchTree<T>::search(const T& val) const
     {
         Node* thisNode = _root;
         while (thisNode != nullptr)
@@ -206,7 +220,7 @@ namespace Boots
     }
 
     template<typename T>
-    const std::vector<T> BinarySearchTree<T>::traverse(const T& val)
+    const std::vector<T> BinarySearchTree<T>::traverse(const T& val) const
     {
         std::vector<T> ans;
         Node* thisNode = _root;
@@ -229,8 +243,8 @@ std::ostream& operator<<(std::ostream& os, const Boots::BinarySearchTree<T>& obj
 {
 
     os << "[";
-    auto vec = obj.flatten();
-    for (auto itr = vec.begin(); itr != vec.end(); vec++)
+    const std::vector<T> vec = obj.flatten();
+    for (auto itr = vec.begin(); itr != vec.end(); itr++)
     {
         os << *itr;
         if (itr + 1 != vec.end())
@@ -241,3 +255,4 @@ std::ostream& operator<<(std::ostream& os, const Boots::BinarySearchTree<T>& obj
 }
 
 template class Boots::BinarySearchTree<int>;
+template std::ostream& operator<<(std::ostream& os, const Boots::BinarySearchTree<int>& obj);

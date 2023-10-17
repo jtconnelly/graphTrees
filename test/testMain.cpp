@@ -14,6 +14,7 @@ bool testBST()
     std::cout << bst << std::endl;
     std::cout << "Search for 99 (Should fail): " << bst.search(99) << std::endl;
     std::cout << "Search for 17 (Should pass): " << bst.search(17) << std::endl;
+    std::cout << "Search for 83 (Should pass): " << bst.search(83) << std::endl;
     std::cout << "Traverse for 99 (Should fail): ";
     auto vec = bst.traverse(99);
     if (vec.empty())
@@ -29,6 +30,19 @@ bool testBST()
     }
     std::cout << "Search for 17 (Should pass): "; 
     vec = bst.traverse(17);
+    if (vec.empty())
+        std::cout << "[] (empty vec)" << std::endl;
+    else
+    {
+        std::cout << "[ ";
+        for (auto it : vec)
+        {
+            std::cout << it << " ";
+        }
+        std::cout << "]" << std::endl;
+    }
+    std::cout << "Search for 83 (Should pass): "; 
+    vec = bst.traverse(83);
     if (vec.empty())
         std::cout << "[] (empty vec)" << std::endl;
     else

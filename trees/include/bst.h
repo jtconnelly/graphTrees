@@ -16,12 +16,12 @@ namespace Boots
         BinarySearchTree(const BinarySearchTree&);
         BinarySearchTree(BinarySearchTree&&);
 
-        //const std::vector<T> flatten();
+        const std::vector<T> flatten() const;
         bool insert(const T&);
         const size_t size() const;
         bool remove(const T&);
-        bool search(const T&);
-        const std::vector<T> traverse(const T&);
+        bool search(const T&) const;
+        const std::vector<T> traverse(const T&) const;
     protected:
         struct Node
         {
@@ -38,8 +38,8 @@ namespace Boots
         };
     private:
 
-        bool _insertHelper(Node*, const T&);
-        //std::vector<T> _flatten(const Node*); 
+        bool _insertHelper(Node*, Node*, const T&);
+        std::vector<T> _flatten(const Node*) const; 
         
 
         Node* _root;
@@ -49,4 +49,4 @@ namespace Boots
 
 };
 template <typename T>
-std::ostream& operator<<(std::ostream& os, const Boots::BinarySearchTree<T>& obj);
+TREES_EXPORT std::ostream& operator<<(std::ostream& os, const Boots::BinarySearchTree<T>& obj);
