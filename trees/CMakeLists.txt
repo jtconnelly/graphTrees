@@ -1,7 +1,8 @@
 set(TARGET_HEADERS 
 include/bst.h
 include/trie.h
-include/bTree.h)
+include/bTree.h
+include/bTreeNode.h)
 
 set(TARGET_SOURCE
 src/bst.cpp
