@@ -2,12 +2,14 @@ set(TARGET_HEADERS
 include/bst.h
 include/trie.h
 include/bTree.h
-include/bTreeNode.h)
+include/bTreeNode.h
+include/red-black.h)
 
 set(TARGET_SOURCE
 src/bst.cpp
 src/trie.cpp
-src/bTree.cpp)
+src/bTree.cpp
+src/red-black.cpp)
 
 
 add_library(Trees SHARED ${TARGET_HEADERS} ${TARGET_SOURCE})
