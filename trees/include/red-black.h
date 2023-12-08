@@ -10,7 +10,7 @@ namespace Boots
     // 3 - If new node's parent is black, nothing needs to be done
     // 4 - If new node's parent is red, will have to handle by either recoloring or rotating
     // 
-    //
+    
     template <typename T>
     class TREES_EXPORT RedBlackTree
     {
@@ -64,7 +64,7 @@ namespace Boots
                 return _insertHelper(thisNode->_right, val);
         }
 
-        void insertHelper(TreeNode* node, const T& data);
+        void balanceHelper(TreeNode* node);
         
         std::string toStringHelper(TreeNode* node);
 
@@ -74,6 +74,18 @@ namespace Boots
 
         bool search(const T& data);
         void insert(const T& data);
+
+        // Remove Table
+        // DB (Double Black): Means the node we delete is black
+        // 1. If deleted node is red, just remove it like a normal BST
+        // 2. If DB node is root, remove and replace with a reasonable option, make root black
+        // 3. DB sibling is red: Swap DB parent and DB sibling color, rotate parent towards DB, call balanceHelper
+        // 4. Sibling black with black children: Make Sibling red. If Parent black, new DB and re-eval, else (was red) make black
+        // 5. Sibling black with red children: "Restructure"
+        //      "Far child" red: swap DB parent and sibling color, rotate parent toward DB, remove DB sign, make far red child black
+        //      "Near child" red: swap children colors, rotate near child away from DB, perform "far child" case 
+        //
+
         bool remove(const T& data);
 
         std::string toString();

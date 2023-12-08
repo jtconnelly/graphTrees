@@ -5,7 +5,7 @@ namespace Boots
 {
 
     template<typename T>
-    void RedBlackTree<T>::insertHelper(TreeNode* node, const T& data)
+    void RedBlackTree<T>::balanceHelper(TreeNode* node)
     {
         enum {
             // (1 == right)
@@ -106,7 +106,7 @@ namespace Boots
                 return;
             if (needRedo)
             {
-                insertHelper(newNode, data);
+                balanceHelper(newNode);
             }
         }
             
