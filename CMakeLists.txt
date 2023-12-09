@@ -22,5 +22,6 @@ if (INCLUDE_TREES)
 endif()
 
 if (BUILD_TEST_EXE)
+    enable_testing()
     add_subdirectory(test)
 endif()
