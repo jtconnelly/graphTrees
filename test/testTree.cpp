@@ -1,4 +1,5 @@
 #include <iostream>
+#include <vector>
 #ifdef TEST_TREES
 #include "bst.h"
 #include "bTree.h"
@@ -108,10 +109,6 @@ bool testBTree()
 }
 #endif
 
-#ifdef TEST_GRAPHS
-#include "graph.h"
-#endif;
-
 void separator()
 {
     std::cout << std::endl << std::string(20, '-') << std::endl;
@@ -125,9 +122,6 @@ int main(int argc, char** argv)
 #ifdef TEST_TREES
     functions.push_back(testBST);
     functions.push_back(testBTree);
-#endif
-#ifdef TEST_GRAPHS
-
 #endif
     bool pass = true;
     for (auto& func : functions)
