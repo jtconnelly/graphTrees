@@ -2,7 +2,7 @@
 #include <vector>
 #ifdef TEST_GRAPHS
 #include "graph.h"
-#endif;
+#endif
 
 void separator()
 {
